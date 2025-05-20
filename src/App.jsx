@@ -1,9 +1,9 @@
-import { useState } from "react";
+import AppRoute from "./routes/AppRoute"
 import "./App.css";
 function App() {
   return (
     <>
-      <h1>Hello Face Pen</h1>
+      <AppRoute />
     </>
   );
 }

@@ -1,0 +1,92 @@
+import './FormLogin.scss'
+import { Form, Link, useNavigate } from 'react-router-dom'
+import { handleLogin } from "../service/ApiService"
+import { useState } from "react"
+
+const FormLogin = () => {
+    const navigate = useNavigate()
+    const [formLogin, setFormLogin] = useState({
+        email: "",
+        password: "",
+    });
+    const [errors, setErrors] = useState({
+        email: "",
+        password: "",
+    });
+    const validateForm = () => {
+        let isValid = true
+        const newErrors = {email : "", password: ""}
+
+        if (!formLogin.email) {
+            newErrors.email = "(*) Email is required"
+            isValid = false
+        } else if (!/\S+@\S+\.\S+/.test(formLogin.email)) {
+            newErrors.email = "(*) Invalid email format"
+            isValid = false
+        }
+
+        if (!formLogin.password) {
+            newErrors.password = "(*) Password is required"
+            isValid = false
+        } else if (formLogin.password.length < 8) {
+            newErrors.password = "(*) Password must be at least 8 characters"
+            isValid = false
+        }
+
+        setErrors(newErrors)
+        return isValid
+    }
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        if (validateForm()) {
+            try {
+                const response = await handleLogin(formLogin)
+                if (response && response.data && response.data.success) {
+                    navigate('/');
+                } else {
+                    setErrors(prev => ({...prev, password: "Email or password is incorrect"}));
+                }
+            } catch (error) {
+                setErrors(prev => ({...prev, password: "Email or password is incorrect"}))
+            }
+        }
+        
+    }
+    const [ hidenPassword, setHidenPassword ] = useState(false)
+    return (
+        <form onSubmit={handleSubmit} action="login" className="form-login">
+            <div className="flex-column">
+                <label>Email</label>
+            </div>
+            <div className="input-form">
+                <input type="text" name="email" id="email" className="input" placeholder="Enter your Email" value={formLogin.email} onChange={(e) => setFormLogin({...formLogin, email: e.target.value})}/>
+            </div>
+                {errors.email && <div className="err">{errors.email}</div>}
+            <div className="flex-column">
+                <label>Password</label>
+            </div>
+            <div className="input-form">
+                <input type={hidenPassword === false ? "password" : "text"} name="password" id="password" className="input" placeholder="Enter your Password" value={formLogin.password} onChange={(e) => setFormLogin({ ...formLogin, password: e.target.value})}/>
+                <i className={hidenPassword === false ? "fa-regular fa-eye" : "fa-regular fa-eye-slash"} onClick={() => setHidenPassword(!hidenPassword) }></i>
+            </div>
+                {errors.password && <div className="err">{errors.password}</div>}
+
+            <div className="flex-row">
+                <div className="remeber-account">
+                    <input type="radio" />
+                    <label> Remember me </label>
+                </div>
+                <span className="forgot-span">Forgot password?</span>
+            </div>
+
+            <button className="button-submit">Sign in</button>
+            <p className="p">Don't have an account? <span className="sign-up"><Link to={"/register"}>Sign Up</Link></span></p>
+            <p className="p line">Or With</p>
+            <div className="flex-row">
+                <button className="btn google"></button>
+            </div>
+        </form>
+    )
+}
+
+export default FormLogin
