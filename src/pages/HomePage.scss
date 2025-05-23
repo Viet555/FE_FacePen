@@ -1,0 +1,16 @@
+.main-content {
+    width: 100vw;
+    height: 100vh;
+    margin-left: 60px;
+    padding: 0px 150px;
+    display: flex;
+    .content {
+        width: 60%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .sub-content {
+        width: 40%;
+    }
+}

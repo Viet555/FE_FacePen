@@ -4,7 +4,7 @@
     left: 1%;
     height: 90vh;
     width: 60px;
-    border-radius: 35px;
+    border-radius: 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -20,7 +20,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        color: white;
+        color: rgb(255, 255, 255);
     }
     .sidebar__menu {
         .menu-list {
@@ -32,7 +32,7 @@
                 align-items: center;
                 margin-left: 5px;
                 padding: 15px;
-                color: white;
+                color: rgb(255, 255, 255);
                 cursor: pointer;
                 i {
                     font-size: 18px;

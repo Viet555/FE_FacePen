@@ -1,10 +1,11 @@
 import './FormLogin.scss'
-import { Form, Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { handleLogin } from "../service/ApiService"
 import { useState } from "react"
 
 const FormLogin = () => {
     const navigate = useNavigate()
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [formLogin, setFormLogin] = useState({
         email: "",
         password: "",
@@ -37,21 +38,26 @@ const FormLogin = () => {
         return isValid
     }
     const handleSubmit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
         if (validateForm()) {
+            setIsSubmitting(true);
             try {
-                const response = await handleLogin(formLogin)
-                if (response && response.data && response.data.success) {
+                const response = await handleLogin(formLogin);
+                if (response && response.EC === 0) {
+                    localStorage.setItem("accessToken", response.payloadToken.accessToken);
+                    localStorage.setItem("user", JSON.stringify(response.data));
+
                     navigate('/');
                 } else {
-                    setErrors(prev => ({...prev, password: "Email or password is incorrect"}));
+                    setErrors(prev => ({ ...prev, password: response.MES || "Email or password is incorrect" }));
                 }
             } catch (error) {
-                setErrors(prev => ({...prev, password: "Email or password is incorrect"}))
+                setErrors(prev => ({ ...prev, password: "Email or password is incorrect" }));
+            } finally {
+                setIsSubmitting(false);
             }
         }
-        
-    }
+    };
     const [ hidenPassword, setHidenPassword ] = useState(false)
     return (
         <form onSubmit={handleSubmit} action="login" className="form-login">
@@ -79,7 +85,9 @@ const FormLogin = () => {
                 <span className="forgot-span">Forgot password?</span>
             </div>
 
-            <button className="button-submit">Sign in</button>
+            <button className="button-submit" disabled={isSubmitting}>
+                 {isSubmitting ? "Signing in..." : "Sign in"}
+            </button>
             <p className="p">Don't have an account? <span className="sign-up"><Link to={"/register"}>Sign Up</Link></span></p>
             <p className="p line">Or With</p>
             <div className="flex-row">
