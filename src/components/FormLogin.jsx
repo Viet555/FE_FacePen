@@ -4,6 +4,7 @@ import { handleLogin } from "../service/ApiService";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as action from "../store/Export";
+import { toast } from "react-toastify";
 const FormLogin = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -19,8 +20,8 @@ const FormLogin = () => {
   });
   useEffect(() => {
     if (user?.isauthentic === true) {
-      localStorage.setItem("accessToken", infoUser?.account?.accessToken);
-      localStorage.setItem("refreshToken", infoUser?.account?.refreshToken);
+      localStorage.setItem("accessToken", user?.account?.accessToken);
+      localStorage.setItem("refreshToken", user?.account?.refreshToken);
       toast.success(`Welcome ${user.account.email} to home`);
       navigate("/");
     }
