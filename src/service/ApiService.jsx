@@ -8,7 +8,9 @@ const handleRegister = (dataRegister) => {
 }
 
 const getPostsService = (userId) => {
-    return axios.get('/api/get-Post', userId)
+    return axios.get('/api/get-Post', {
+        params: {userId}
+    })
 }
 
 export {handleLogin, handleRegister, getPostsService}

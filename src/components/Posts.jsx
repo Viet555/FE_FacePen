@@ -1,19 +1,36 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './Posts.scss'
-// import { getPostsService } from '../service/ApiService'
-import postImg  from '../assets/image/post-image.jpg'
+import { getPostsService } from '../service/ApiService'
+import { useSelector } from 'react-redux'
 const Posts = () => {
-    // const [posts, setPosts] = useState([])
-    // const [loading, setLoading] = useState(true)
+    const [ posts, setPosts ] = useState([])
+    const userId = useSelector(state => state.user.account)
+    console.log(userId.id)
+    useEffect(() => {
+        const fecthPosts = async () => {
+            try {
+                const res = await getPostsService(userId.id) 
+                if (res?.data?.Ec === 0) {
+                    setPosts(res.data.Data)
+                } else {
+                    console.error(res?.data?.Mes)
+                }
+            } catch (error) {
+                console.error("Error fetching posts: ", error)
+            }
+        }
+        fecthPosts()
+    }, [])
 
     return (
         <div className="posts-content">
-            <div className="post-box">
+            {posts.map((post, index) => (
+                <div className="post-box" key={index}>
                 <div className="post-box__header">
                     <div className="avt-user">
-                        <i className="fa-regular fa-circle-user"></i>
+                        <img src={post.author.avatar} alt="" />
                         <div className="user-name">
-                            Nguyen Van Tu Vinh
+                            {post.author.firstName} {post.author.lastName}
                         </div>
                     </div>
                     <div className="btn-more">
@@ -22,10 +39,12 @@ const Posts = () => {
                 </div>
                 <div className="post-box__content">
                     <div className="caption-post">
-                        Ai muốn thử cảm giác lên mây thì nhất định phải đi Đà Lạt mùa này nha 😗 
+                        {post.caption}
                     </div>
                     <div className="media-post">
-                        <img src={postImg} />
+                        {post.media.map((m) => (
+                            <img src={m} className='media-item'></img>
+                        ))}
                     </div>
                 </div>
                 <div className="post-box__action">
@@ -40,38 +59,7 @@ const Posts = () => {
                     </div>
                 </div>
             </div>
-            <div className="post-box">
-                <div className="post-box__header">
-                    <div className="avt-user">
-                        <i className="fa-regular fa-circle-user"></i>
-                        <div className="user-name">
-                            Nguyen Van Tu Vinh
-                        </div>
-                    </div>
-                    <div className="btn-more">
-                        <i className="fa-solid fa-ellipsis"></i>
-                    </div>
-                </div>
-                <div className="post-box__content">
-                    <div className="caption-post">
-                        Ai muốn thử cảm giác lên mây thì nhất định phải đi Đà Lạt mùa này nha 😗 
-                    </div>
-                    <div className="media-post">
-                        <img src={postImg} />
-                    </div>
-                </div>
-                <div className="post-box__action">
-                    <div className="reaction-post">
-                        <i className="fa-regular fa-heart"></i>
-                    </div>
-                    <div className="comment-post">
-                        <i className="fa-regular fa-comment"></i>
-                    </div>
-                    <div className="share-post">
-                        <i className="fa-solid fa-share"></i>
-                    </div>
-                </div>
-            </div>
+            ))}
         </div>
     )
 }
