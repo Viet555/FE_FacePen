@@ -3,10 +3,12 @@ import "./SideBar.scss";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import * as action from "../store/Export";
+import PostModal from "./Modal/PostModal";
 const SideBar = () => {
   const [showMoreMenu, setShowMoreMenu] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [open, setOpen] = useState(false)
   const toggleMoreMenu = () => {
     setShowMoreMenu(!showMoreMenu);
   };
@@ -33,7 +35,7 @@ const SideBar = () => {
             <i className="fa-solid fa-film"></i>
             <span>Reels</span>
           </li>
-          <li className="menu-item">
+          <li className="menu-item" onClick={() => setOpen(true)}>
             <i className="fa-solid fa-plus"></i>
             <span>New post</span>
           </li>
@@ -67,8 +69,10 @@ const SideBar = () => {
           </div>
         )}
       </div>
+      {open && <PostModal onClose={() => setOpen(false)} />}
     </div>
-  );
-};
+    
+  )
+}
 
 export default SideBar;

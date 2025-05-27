@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import './Story.scss'
-import StoryModal from './StoryModal'
+import StoryModal from './Modal/StoryModal'
 import image from '../assets/image/post-image.jpg'
 const stories = [
   {
@@ -75,12 +75,11 @@ const Story = () => {
         <div className="story-container">
             <button className="scroll-btn left" onClick={scrollLeft}><i className="fa-solid fa-chevron-left"></i></button>
             <div className="story-scroll" ref={scrollRef}>
-                <div className="story-create">
+                <div className="story-create" onClick={handleOpen}>
                     <div className="story-image-placeholder"></div>
                     <button className="create-button">
                         +
                     </button>
-                    <p>Create</p>
                 </div>
 
                 {stories.map((story, index) => (
