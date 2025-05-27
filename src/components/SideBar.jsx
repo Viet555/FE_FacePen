@@ -38,7 +38,7 @@ const SideBar = () => {
             <span>New post</span>
           </li>
           <li className="menu-item">
-            <i class="fa-solid fa-inbox"></i>
+            <i className="fa-solid fa-inbox"></i>
             <span>Message</span>
           </li>
           <li className="menu-item">
@@ -46,7 +46,7 @@ const SideBar = () => {
             <span>Notifications</span>
           </li>
           <li className="menu-item">
-            <i class="fa-solid fa-compass"></i>
+            <i className="fa-solid fa-compass"></i>
             <span>Explore</span>
           </li>
           <li className="menu-item">

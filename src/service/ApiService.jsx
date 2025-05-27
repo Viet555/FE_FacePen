@@ -1,16 +1,16 @@
-import axios from "../utils/customizeAxios"
+import axios from "../utils/customizeAxios";
 
 const handleLogin = (dataLogin) => {
-    return axios.post('/api/login-user', dataLogin)
-}
+  return axios.post("/api/login-user", dataLogin);
+};
 const handleRegister = (dataRegister) => {
-    return  axios.post('/api/CreateUser', dataRegister)
-}
+  return axios.post("/api/CreateUser", dataRegister);
+};
 
 const getPostsService = (userId) => {
-    return axios.get('/api/get-Post', {
-        params: {userId}
-    })
-}
-
-export {handleLogin, handleRegister, getPostsService}
+  return axios.get(`/api/get-Post?id=${userId}`);
+};
+const getFriendSuggestion = (userId) => {
+  return axios.get(`/api/friend-suggestion?id=${userId}`);
+};
+export { handleLogin, handleRegister, getPostsService, getFriendSuggestion };
