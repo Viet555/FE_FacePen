@@ -1,7 +1,7 @@
-import { useRef, useState } from 'react'
-import './Story.scss'
-import StoryModal from './Modal/StoryModal'
-import image from '../assets/image/post-image.jpg'
+import { useRef, useState } from "react";
+import "./Story.scss";
+import StoryModal from "./Modal/StoryModal";
+import image from "../assets/image/post-image.jpg";
 const stories = [
   {
     id: 1,
@@ -39,7 +39,6 @@ const stories = [
     avatar: "",
     storyImage: image,
   },
-  
 ];
 const Story = () => {
   const [selectedStory, setSelectedStory] = useState(null);
@@ -50,19 +49,19 @@ const Story = () => {
     scrollRef.current.scrollBy({ left: -200, behavior: "smooth" });
   };
 
-    const scrollRight = () => {
-        scrollRef.current.scrollBy({ left: 200, behavior: 'smooth' })
-    }
-    return (
-        <div className="story-container">
-            <button className="scroll-btn left" onClick={scrollLeft}><i className="fa-solid fa-chevron-left"></i></button>
-            <div className="story-scroll" ref={scrollRef}>
-                <div className="story-create">
-                    <div className="story-image-placeholder"></div>
-                    <button className="create-button">
-                        +
-                    </button>
-                </div>
+  const scrollRight = () => {
+    scrollRef.current.scrollBy({ left: 200, behavior: "smooth" });
+  };
+  return (
+    <div className="story-container">
+      <button className="scroll-btn left" onClick={scrollLeft}>
+        <i className="fa-solid fa-chevron-left"></i>
+      </button>
+      <div className="story-scroll" ref={scrollRef}>
+        <div className="story-create">
+          <div className="story-image-placeholder"></div>
+          <button className="create-button">+</button>
+        </div>
 
         {stories.map((story, index) => (
           <div
@@ -70,8 +69,8 @@ const Story = () => {
             key={story.id}
             onClick={() => handleOpen(story)}
           >
-            <img src={story.storyImage} alt="" className="story-img" />
-            <img src="" alt="" className="story-avatar" />
+            <img src={story.storyImage} className="story-img" />
+            <img src={image} className="story-avatar" />
             <p className="story-name">{story.name}</p>
           </div>
         ))}

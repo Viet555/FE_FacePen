@@ -11,7 +11,7 @@ const Suggested = () => {
     FriendSuggestion();
   }, [user]);
   const FriendSuggestion = async () => {
-    let res = await getFriendSuggestion(user.id);
+    let res = await getFriendSuggestion(user?.id);
     if (res?.Ec === 0) {
       setFriends(res.data);
     } else {

@@ -13,8 +13,20 @@ const getPostsService = (userId) => {
 const getFriendSuggestion = (userId) => {
   return axios.get(`/api/friend-suggestion?id=${userId}`);
 };
-
-const createPost = (dataCreatePost) => {
-  return axios.post(`/api/Create-Post`, dataCreatePost)
-}
-export { handleLogin, handleRegister, getPostsService, getFriendSuggestion, createPost };
+const createPost = (formData) => {
+  return axios.post("/api/Create-Post", formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+};
+// const createPost = (dataCreatePost) => {
+//   return axios.post(`/api/Create-Post`, dataCreatePost)
+// }
+export {
+  handleLogin,
+  handleRegister,
+  getPostsService,
+  getFriendSuggestion,
+  createPost,
+};

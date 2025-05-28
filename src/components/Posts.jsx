@@ -9,6 +9,7 @@ const Posts = () => {
     const fecthPosts = async () => {
       try {
         const res = await getPostsService(userId.id);
+        console.log(res);
         if (res?.Ec === 0) {
           setPosts(res.Data);
         } else {
@@ -29,7 +30,7 @@ const Posts = () => {
           <div className="post-box" key={post._id}>
             <div className="post-box__header">
               <div className="avt-user">
-                <img src={post.author.avatar} alt="" />
+                <img src={post.author.avatar || null} />
                 <div className="user-name">
                   {post.author.firstName} {post.author.lastName}
                 </div>
@@ -43,11 +44,11 @@ const Posts = () => {
               <div className="media-post">
                 {post.media.map((m, idx) => {
                   if (m?.type?.startsWith("image/")) {
-                    return <img key={idx} src={m.data} alt={`media-${idx}`} />;
+                    return <img key={idx} src={m.url} alt={`media-${idx}`} />;
                   } else if (m?.type?.startsWith("video/")) {
                     return (
                       <video key={idx} controls>
-                        <source src={m.data} type={m.type} />
+                        <source src={m.url} type={m.type} />
                       </video>
                     );
                   } else {
