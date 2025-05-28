@@ -42,9 +42,9 @@ const Posts = () => {
               <div className="caption-post">{post.caption}</div>
               <div className="media-post">
                 {post.media.map((m, idx) => {
-                  if (m.type.startsWith('image/')) {
+                  if (m?.type?.startsWith("image/")) {
                     return <img key={idx} src={m.data} alt={`media-${idx}`} />;
-                  } else if (m.type.startsWith('video/')) {
+                  } else if (m?.type?.startsWith("video/")) {
                     return (
                       <video key={idx} controls>
                         <source src={m.data} type={m.type} />
