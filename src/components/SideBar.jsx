@@ -4,11 +4,16 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import * as action from "../store/Export";
 import PostModal from "./Modal/PostModal";
+import { useSelector } from "react-redux";
+
 const SideBar = () => {
   const [showMoreMenu, setShowMoreMenu] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false)
+  const userId = useSelector((state) => state.user.account)
+  
+
   const toggleMoreMenu = () => {
     setShowMoreMenu(!showMoreMenu);
   };
@@ -69,7 +74,7 @@ const SideBar = () => {
           </div>
         )}
       </div>
-      {open && <PostModal onClose={() => setOpen(false)} />}
+      {open && <PostModal user={userId} onClose={() => setOpen(false)} />}
     </div>
     
   )

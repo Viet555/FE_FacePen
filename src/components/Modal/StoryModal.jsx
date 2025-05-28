@@ -9,7 +9,9 @@ const StoryModal = ({story, onClose}) => {
                     <img src={story.avatar} alt="" className="modal-avatar" />
                     <p className="modal-name">{story.name}</p>
                 </div>
-                <button className="modal-close" onClick={onClose}></button>
+                <button className="modal-close" onClick={onClose}>
+                    <i className="fa-solid fa-xmark"></i>
+                </button>
             </div>
         </div>
     )

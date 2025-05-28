@@ -7,7 +7,6 @@ import { getFriendSuggestion } from "../service/ApiService";
 const Suggested = () => {
   const user = useSelector((state) => state.user.account);
   const [friends, setFriends] = useState();
-  console.log(user.id);
   useEffect(() => {
     FriendSuggestion();
   }, [user]);

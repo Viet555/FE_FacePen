@@ -41,9 +41,19 @@ const Posts = () => {
             <div className="post-box__content">
               <div className="caption-post">{post.caption}</div>
               <div className="media-post">
-                {post.media.map((m) => (
-                  <img src={m} className="media-item"></img>
-                ))}
+                {post.media.map((m, idx) => {
+                  if (m.type.startsWith('image/')) {
+                    return <img key={idx} src={m.data} alt={`media-${idx}`} />;
+                  } else if (m.type.startsWith('video/')) {
+                    return (
+                      <video key={idx} controls>
+                        <source src={m.data} type={m.type} />
+                      </video>
+                    );
+                  } else {
+                    return null;
+                  }
+                })}
               </div>
             </div>
             <div className="post-box__action">

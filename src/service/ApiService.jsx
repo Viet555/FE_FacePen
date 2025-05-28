@@ -13,4 +13,8 @@ const getPostsService = (userId) => {
 const getFriendSuggestion = (userId) => {
   return axios.get(`/api/friend-suggestion?id=${userId}`);
 };
-export { handleLogin, handleRegister, getPostsService, getFriendSuggestion };
+
+const createPost = (dataCreatePost) => {
+  return axios.post(`/api/Create-Post`, dataCreatePost)
+}
+export { handleLogin, handleRegister, getPostsService, getFriendSuggestion, createPost };

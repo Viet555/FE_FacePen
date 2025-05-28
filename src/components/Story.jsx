@@ -10,53 +10,36 @@ const stories = [
     storyImage: image,
   },
   {
-    id: 1,
+    id: 2,
+    name: "Vinh Ne",
+    avatar: "",
+    storyImage: image,
+  },
+  {
+    id: 3,
     name: "Vy 2003",
     avatar: "",
     storyImage: image,
   },
   {
-    id: 1,
+    id: 4,
     name: "Vy 2003",
     avatar: "",
     storyImage: image,
   },
   {
-    id: 1,
+    id: 5,
     name: "Vy 2003",
     avatar: "",
     storyImage: image,
   },
   {
-    id: 1,
+    id: 6,
     name: "Vy 2003",
     avatar: "",
     storyImage: image,
   },
-  {
-    id: 1,
-    name: "Vy 2003",
-    avatar: "",
-    storyImage: image,
-  },
-  {
-    id: 1,
-    name: "Vy 2003",
-    avatar: "",
-    storyImage: image,
-  },
-  {
-    id: 1,
-    name: "Vy 2003",
-    avatar: "",
-    storyImage: image,
-  },
-  {
-    id: 1,
-    name: "Vy 2003",
-    avatar: "",
-    storyImage: image,
-  },
+  
 ];
 const Story = () => {
   const [selectedStory, setSelectedStory] = useState(null);
@@ -76,7 +59,7 @@ const Story = () => {
             <div className="story-scroll" ref={scrollRef}>
                 <div className="story-create">
                     <div className="story-image-placeholder"></div>
-                    <button className="create-button" onClick={handleOpen}>
+                    <button className="create-button">
                         +
                     </button>
                 </div>

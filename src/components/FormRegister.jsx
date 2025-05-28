@@ -3,6 +3,7 @@ import { useState } from 'react';
 import './FormRegister.scss';
 import { handleRegister } from "../service/ApiService";
 
+
 const FormRegister = () => {
     const navigate = useNavigate();
 
@@ -11,6 +12,7 @@ const FormRegister = () => {
         lastName: "",
         email: "",
         password: "",
+        avatar: ""
     });
 
     const [errors, setErrors] = useState({
