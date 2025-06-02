@@ -18,7 +18,6 @@ const Suggested = () => {
       toast.error(res?.Mes);
     }
   };
-  console.log("ecqecq", friends?.sameCitySuggestions);
   return (
     <div className="suggested-list">
       <div className="suggested-title">

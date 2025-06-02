@@ -6,7 +6,7 @@ import Slider from "react-slick";
 
 const Posts = () => {
   const CustomPrevArrow = (props) => {
-  const { className, style, onClick } = props;
+    const { className, style, onClick } = props;
     return (
       <div
         className={className}
@@ -48,7 +48,7 @@ const Posts = () => {
     const fecthPosts = async () => {
       try {
         const res = await getPostsService(userId.id);
-        console.log(res);
+        console.log(res.Data);
         if (res?.Ec === 0) {
           setPosts(res.Data);
         } else {
@@ -82,19 +82,20 @@ const Posts = () => {
               <div className="caption-post">{post.caption}</div>
               <div className="media-post">
                 <Slider {...settingSlide}>
-                {post.media.map((m, idx) => {
-                  if (m?.type?.startsWith("image/")) {
-                    return <img key={idx} src={m.url} alt={`media-${idx}`} />;
-                  } else if (m?.type?.startsWith("video/")) {
-                    return (
-                      <video key={idx} controls>
-                        <source src={m.url} type={m.type} />
-                      </video>
-                    );
-                  } else {
-                    return null;
-                  }
-                })}
+                  {post?.media?.map((m, idx) => {
+                    if (m?.type?.startsWith("image/")) {
+                      console.log("testestestet", m.url);
+                      return <img key={idx} src={m.url} alt={`media-${idx}`} />;
+                    } else if (m?.type?.startsWith("video/")) {
+                      return (
+                        <video key={idx} controls>
+                          <source src={m.url} type={m.type} />
+                        </video>
+                      );
+                    } else {
+                      return null;
+                    }
+                  })}
                 </Slider>
               </div>
             </div>
