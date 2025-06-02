@@ -4,14 +4,17 @@ import { ToastContainer } from "react-toastify";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
+
 function App() {
   const account = useSelector((state) => state.user.account);
   const navigate = useNavigate();
-  useEffect(() => {
-    if (!account?.gender) {
-      navigate("/chooseGender");
-    }
-  }, [account, navigate]);
+  // useEffect(() => {
+  //   if (!account?.gender) {
+  //     navigate("/chooseGender");
+  //   }
+  // }, [account, navigate]);
 
   return (
     <>

@@ -2,7 +2,46 @@ import { useEffect, useState } from "react";
 import "./Posts.scss";
 import { getPostsService } from "../service/ApiService";
 import { useSelector } from "react-redux";
+import Slider from "react-slick";
+
 const Posts = () => {
+  const CustomPrevArrow = (props) => {
+  const { className, style, onClick } = props;
+    return (
+      <div
+        className={className}
+        style={{ ...style, zIndex: 2 }}
+        onClick={onClick}
+      >
+        <i className="fa-solid fa-chevron-left"></i>
+      </div>
+    );
+  };
+
+  const CustomNextArrow = (props) => {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={className}
+        style={{ ...style, zIndex: 2 }}
+        onClick={onClick}
+      >
+        <i className="fa-solid fa-chevron-right"></i>
+      </div>
+    );
+  };
+
+  const settingSlide = {
+    dots: true,
+    arrows: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    prevArrow: <CustomPrevArrow />,
+    nextArrow: <CustomNextArrow />,
+  };
+
   const [posts, setPosts] = useState([]);
   const userId = useSelector((state) => state.user.account);
   useEffect(() => {
@@ -42,6 +81,7 @@ const Posts = () => {
             <div className="post-box__content">
               <div className="caption-post">{post.caption}</div>
               <div className="media-post">
+                <Slider {...settingSlide}>
                 {post.media.map((m, idx) => {
                   if (m?.type?.startsWith("image/")) {
                     return <img key={idx} src={m.url} alt={`media-${idx}`} />;
@@ -55,6 +95,7 @@ const Posts = () => {
                     return null;
                   }
                 })}
+                </Slider>
               </div>
             </div>
             <div className="post-box__action">

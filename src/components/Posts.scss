@@ -1,4 +1,5 @@
 .posts-content {
+  max-width: 500px;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -67,17 +68,56 @@
       .media-post {
         width: 100%;
         border-radius: 10px;
-        overflow: hidden;
+        height: 540px;
+        margin: auto;
+        position: relative;
+        border-top: 1px solid #ccc;
+        .slick-slide {
+          display: block !important; /* hoặc flex nếu không lỗi, nhưng ưu tiên block */
+          height: 520px; /* đúng chiều cao container */
+          position: relative;
+        }
 
+        .slick-slide > div {
+          height: 100%;
+          display: flex;
+          align-items: center; /* căn giữa dọc */
+          justify-content: center; /* căn giữa ngang */
+        }
+         .slick-prev,
+        .slick-next {
+          z-index: 2;
+          font-size: 24px;
+          color: #ffffff;
+          position: absolute;
+        }
+        .slick-next{
+          right: 5px;
+        }
+        .slick-prev{
+          left: 5px;
+        }
+
+        .slick-prev:before,
+        .slick-next:before {
+          font-family: 'slick';
+          font-size: 30px;
+          color: #2d79f3;
+          opacity: 1;
+          content: '';
+          display: inline-block;
+          background-color: #fff;
+          mask-size: cover;
+        }
+        video {
+          width: 500px;
+          height: 300px;
+          border-radius: 10px;
+        }
         img {
           width: 100%;
-          height: auto;
+          max-height: 500px;
           border-radius: 10px;
-          transition: transform 0.3s ease-in-out;
-
-          &:hover {
-            transform: scale(1.02);
-          }
         }
       }
     }
