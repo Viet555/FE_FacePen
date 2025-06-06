@@ -1,10 +1,26 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./Posts.scss";
 import { getPostsService } from "../service/ApiService";
 import { useSelector } from "react-redux";
 import Slider from "react-slick";
 
 const Posts = () => {
+  const [ showMenu, setShowMenu] = useState(false)
+  const moreMenuRef = useRef(null)
+  const toggleMenu = () => {
+    setShowMenu(prev => !prev)
+  }
+  useEffect(() => {
+    const handleClickOutSide = (e) => {
+      if (moreMenuRef.current && !moreMenuRef.current.contains(e.target)) {
+        setShowMenu(false)
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutSide)
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutSide)
+    }
+  }, [])
   const CustomPrevArrow = (props) => {
     const { className, style, onClick } = props;
     return (
@@ -74,8 +90,15 @@ const Posts = () => {
                   {post.author.firstName} {post.author.lastName}
                 </div>
               </div>
-              <div className="btn-more">
+              <div className="btn-more" onClick={toggleMenu} ref={moreMenuRef}>
                 <i className="fa-solid fa-ellipsis"></i>
+                <div className="btn-more__menu" style={{display: showMenu ? 'block' : 'none'}}>
+                  <ul className="menu">
+                    <li className="option" style={{color: 'red'}}>Report</li>
+                    <li className="option">Don't Care</li>
+                    <li className="option">Save</li>
+                  </ul>
+                </div>
               </div>
             </div>
             <div className="post-box__content">

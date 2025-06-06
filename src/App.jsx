@@ -8,11 +8,11 @@ import { useEffect } from "react";
 function App() {
   const account = useSelector((state) => state.user.account);
   const navigate = useNavigate();
-  // useEffect(() => {
-  //   if (!account?.gender) {
-  //     navigate("/chooseGender");
-  //   }
-  // }, [account, navigate]);
+  useEffect(() => {
+    if (!account?.gender) {
+      navigate("/chooseGender");
+    }
+  }, [account, navigate]);
 
   return (
     <>
