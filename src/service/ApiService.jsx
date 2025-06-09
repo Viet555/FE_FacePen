@@ -6,7 +6,11 @@ const handleLogin = (dataLogin) => {
 const handleRegister = (dataRegister) => {
   return axios.post("/api/CreateUser", dataRegister);
 };
-
+//user
+const updateUser = (_id, gender) => {
+  return axios.put(`/api/update-user`, { _id, gender });
+};
+//
 const getPostsService = (userId) => {
   return axios.get(`/api/get-Post?id=${userId}`);
 };
@@ -20,6 +24,12 @@ const createPost = (formData) => {
     },
   });
 };
+//relationship
+const SendFriendRequest = (requesterId, recipientId) => {
+  return axios.post("/api/friend-Request", { requesterId, recipientId });
+};
+
+//
 // const createPost = (dataCreatePost) => {
 //   return axios.post(`/api/Create-Post`, dataCreatePost)
 // }
@@ -29,4 +39,6 @@ export {
   getPostsService,
   getFriendSuggestion,
   createPost,
+  updateUser,
+  SendFriendRequest,
 };

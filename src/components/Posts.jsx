@@ -3,24 +3,25 @@ import "./Posts.scss";
 import { getPostsService } from "../service/ApiService";
 import { useSelector } from "react-redux";
 import Slider from "react-slick";
+import { toast } from "react-toastify";
 
 const Posts = () => {
-  const [ showMenu, setShowMenu] = useState(false)
-  const moreMenuRef = useRef(null)
+  const [showMenu, setShowMenu] = useState(false);
+  const moreMenuRef = useRef(null);
   const toggleMenu = () => {
-    setShowMenu(prev => !prev)
-  }
+    setShowMenu((prev) => !prev);
+  };
   useEffect(() => {
     const handleClickOutSide = (e) => {
       if (moreMenuRef.current && !moreMenuRef.current.contains(e.target)) {
-        setShowMenu(false)
+        setShowMenu(false);
       }
-    }
-    document.addEventListener("mousedown", handleClickOutSide)
+    };
+    document.addEventListener("mousedown", handleClickOutSide);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutSide)
-    }
-  }, [])
+      document.removeEventListener("mousedown", handleClickOutSide);
+    };
+  }, []);
   const CustomPrevArrow = (props) => {
     const { className, style, onClick } = props;
     return (
@@ -61,22 +62,22 @@ const Posts = () => {
   const [posts, setPosts] = useState([]);
   const userId = useSelector((state) => state.user.account);
   useEffect(() => {
-    const fecthPosts = async () => {
-      try {
+    fecthPosts();
+  }, [userId]);
+  const fecthPosts = async () => {
+    try {
+      if (userId) {
         const res = await getPostsService(userId.id);
-        console.log(res.Data);
         if (res?.Ec === 0) {
           setPosts(res.Data);
         } else {
-          console.log(res?.Mes);
+          toast.error(res?.Mes);
         }
-      } catch (error) {
-        console.log("Error fetching posts: ", error);
       }
-    };
-    fecthPosts();
-  }, [userId]);
-
+    } catch (error) {
+      console.log("Error fetching posts: ", error);
+    }
+  };
   return (
     <div className="posts-content">
       {posts &&
@@ -92,9 +93,14 @@ const Posts = () => {
               </div>
               <div className="btn-more" onClick={toggleMenu} ref={moreMenuRef}>
                 <i className="fa-solid fa-ellipsis"></i>
-                <div className="btn-more__menu" style={{display: showMenu ? 'block' : 'none'}}>
+                <div
+                  className="btn-more__menu"
+                  style={{ display: showMenu ? "block" : "none" }}
+                >
                   <ul className="menu">
-                    <li className="option" style={{color: 'red'}}>Report</li>
+                    <li className="option" style={{ color: "red" }}>
+                      Report
+                    </li>
                     <li className="option">Don't Care</li>
                     <li className="option">Save</li>
                   </ul>
@@ -107,7 +113,6 @@ const Posts = () => {
                 <Slider {...settingSlide}>
                   {post?.media?.map((m, idx) => {
                     if (m?.type?.startsWith("image/")) {
-                      console.log("testestestet", m.url);
                       return <img key={idx} src={m.url} alt={`media-${idx}`} />;
                     } else if (m?.type?.startsWith("video/")) {
                       return (

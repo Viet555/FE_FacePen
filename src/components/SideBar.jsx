@@ -5,14 +5,14 @@ import { useDispatch } from "react-redux";
 import * as action from "../store/Export";
 import PostModal from "./Modal/PostModal";
 import { useSelector } from "react-redux";
+import NotificationArea from "./Modal/Notification";
 
 const SideBar = () => {
   const [showMoreMenu, setShowMoreMenu] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [open, setOpen] = useState(false)
-  const userId = useSelector((state) => state.user.account)
-  
+  const [open, setOpen] = useState(false);
+  const userId = useSelector((state) => state.user.account);
 
   const toggleMoreMenu = () => {
     setShowMoreMenu(!showMoreMenu);
@@ -74,10 +74,10 @@ const SideBar = () => {
           </div>
         )}
       </div>
+      <NotificationArea />
       {open && <PostModal user={userId} onClose={() => setOpen(false)} />}
     </div>
-    
-  )
-}
+  );
+};
 
 export default SideBar;

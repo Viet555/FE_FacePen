@@ -4,7 +4,6 @@ import actiontypes from "./ActionTypes";
 
 export const UserLoginRedux = (dataLog) => {
   return async (dispatch, getState) => {
-    console.log(dataLog);
     let dataUser = await handleLogin(dataLog);
     console.log(dataUser);
     try {

@@ -17,7 +17,7 @@ const PostModal = ({ user, onClose }) => {
   const [formCreate, setFormCreate] = useState({
     author: userAcc.id,
     caption: "",
-    visibility: "",
+    visibility: "public",
     media: [],
     mediaPreview: [],
   });
@@ -91,8 +91,6 @@ const PostModal = ({ user, onClose }) => {
       toast.error(res?.Mes);
     }
   };
-  console.log(formCreate);
-
   return (
     <div className="post-modal-overlay">
       <div className="post-modal">
