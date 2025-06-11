@@ -28,8 +28,12 @@ const createPost = (formData) => {
 const SendFriendRequest = (requesterId, recipientId) => {
   return axios.post("/api/friend-Request", { requesterId, recipientId });
 };
-
+//Notifications
+const getNotifications = (userId) => {
+  return axios.get(`/api/get-notification-user?userId=${userId}`);
+};
 //
+
 // const createPost = (dataCreatePost) => {
 //   return axios.post(`/api/Create-Post`, dataCreatePost)
 // }
@@ -41,4 +45,5 @@ export {
   createPost,
   updateUser,
   SendFriendRequest,
+  getNotifications,
 };

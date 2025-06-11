@@ -1,5 +1,5 @@
 .posts-content {
-  max-width: 500px;
+  max-width: 600px;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -42,6 +42,7 @@
 
       .btn-more {
         position: relative;
+
         i {
           cursor: pointer;
           font-size: 20px;
@@ -52,6 +53,7 @@
             color: #2d79f3;
           }
         }
+
         .btn-more__menu {
           position: absolute;
           left: -420%;
@@ -60,6 +62,7 @@
           background-color: #e2e0e0;
           z-index: 1;
           transition: height 0.3s ease-in-out;
+
           .menu {
             .option {
               width: 100px;
@@ -70,12 +73,13 @@
               padding-bottom: 5px;
               display: inline-block;
               cursor: pointer;
+
               &:hover {
                 background-color: #eee;
               }
             }
           }
-          
+
         }
       }
     }
@@ -83,12 +87,14 @@
     .post-box__content {
       margin-top: 5px;
       margin-bottom: 10px;
+
       .caption-post {
         font-size: 15px;
         line-height: 1.5;
         color: #444;
         margin-bottom: 10px;
       }
+
       .media-post {
         width: 100%;
         border-radius: 10px;
@@ -96,30 +102,40 @@
         margin: auto;
         position: relative;
         border-top: 1px solid #ccc;
+
         .slick-slide {
-          display: block !important; /* hoặc flex nếu không lỗi, nhưng ưu tiên block */
-          height: 520px; /* đúng chiều cao container */
+          display: block !important;
+          /* hoặc flex nếu không lỗi, nhưng ưu tiên block */
+          height: 520px;
+          /* đúng chiều cao container */
           position: relative;
         }
-        .slick-slide > div {
+
+        .slick-slide>div {
           height: 100%;
           display: flex;
-          align-items: center; /* căn giữa dọc */
-          justify-content: center; /* căn giữa ngang */
+          align-items: center;
+          /* căn giữa dọc */
+          justify-content: center;
+          /* căn giữa ngang */
         }
-         .slick-prev,
+
+        .slick-prev,
         .slick-next {
           z-index: 2;
           font-size: 24px;
           color: #ffffff;
           position: absolute;
         }
-        .slick-next{
+
+        .slick-next {
           right: 5px;
         }
-        .slick-prev{
+
+        .slick-prev {
           left: 5px;
         }
+
         .slick-prev:before,
         .slick-next:before {
           font-family: 'slick';
@@ -131,11 +147,13 @@
           background-color: #fff;
           mask-size: cover;
         }
+
         video {
           width: 500px;
           height: 300px;
           border-radius: 10px;
         }
+
         img {
           width: 100%;
           max-height: 500px;

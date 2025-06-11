@@ -12,6 +12,7 @@ const SideBar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
+  const [openNotifications, setOpenNotifications] = useState(false);
   const userId = useSelector((state) => state.user.account);
 
   const toggleMoreMenu = () => {
@@ -48,9 +49,12 @@ const SideBar = () => {
             <i className="fa-solid fa-inbox"></i>
             <span>Message</span>
           </li>
-          <li className="menu-item">
+          <li
+            className="menu-item"
+            onClick={() => setOpenNotifications(!openNotifications)}
+          >
             <i className="fa-regular fa-heart"></i>
-            <span>Notifications</span>
+            <span>Notifications </span>
           </li>
           <li className="menu-item">
             <i className="fa-solid fa-compass"></i>
@@ -74,7 +78,11 @@ const SideBar = () => {
           </div>
         )}
       </div>
-      <NotificationArea />
+      <NotificationArea
+        setOpenNotifications={setOpenNotifications}
+        openNotifications={openNotifications}
+        user={userId}
+      />
       {open && <PostModal user={userId} onClose={() => setOpen(false)} />}
     </div>
   );
