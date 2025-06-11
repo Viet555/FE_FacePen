@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { createSocket } from "../../socket";
 import { Button, Modal } from "react-bootstrap";
-import "./PostModal.scss";
+import "./NotificationModal.scss";
 import { getNotifications } from "../../service/ApiService";
 import { toast } from "react-toastify";
+import avt from "../../assets/image/avatar-female.avif";
 const NotificationArea = (props) => {
   const { openNotifications, setOpenNotifications, user } = props;
   const userId = useSelector((state) => state.user.account?.id);
@@ -38,29 +39,57 @@ const NotificationArea = (props) => {
       socket.disconnect();
     };
   }, [userId]);
-
+  console.log("notifications", notifications);
   return (
     <>
       <Modal
         show={openNotifications}
         onHide={() => setOpenNotifications(!openNotifications)}
-        backdrop="static"
+        // backdrop="static"
+        size="md"
         keyboard={false}
+        className="modal-container"
       >
-        <Modal.Header closeButton>
-          <Modal.Title>Modal title</Modal.Title>
+        <Modal.Header className="header-modal">
+          <div className="col">
+            <Modal.Title>
+              <div className="header-title">Notification</div>
+            </Modal.Title>
+            <Modal.Title>
+              <div className="header-content">
+                <span className="header-child">All</span>
+                <span className="header-child">haven't read yet</span>
+              </div>
+            </Modal.Title>
+          </div>
         </Modal.Header>
         <Modal.Body>
-          I will not close if you click outside me. Do not even try to press
-          escape key.
+          {notifications &&
+            notifications.length > 0 &&
+            notifications.map((item, index) => {
+              return (
+                <div className="content-modal">
+                  <div className="image-user">
+                    <img src={item.senderId.avatar} />
+                  </div>
+                  <div className="content-noti">
+                    <span className="notifi-main">
+                      {item.senderId.firstName} vừa gửi cho bạn lời mời kết bạn
+                    </span>
+                    <span className="notifi-time">2h ago</span>
+                    {item.type === "friend_request" && (
+                      <div className="btn-action">
+                        <button className="btn btn-primary">Confirm</button>
+                        <button className="btn btn-secondary">Cancel</button>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
         </Modal.Body>
         <Modal.Footer>
-          <Button
-            variant="secondary"
-            onClick={() => setOpenNotifications(!openNotifications)}
-          >
-            Close
-          </Button>
+          <span>Xem thoong bao trc do</span>
         </Modal.Footer>
       </Modal>
     </>

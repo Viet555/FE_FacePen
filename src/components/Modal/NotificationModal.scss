@@ -1,0 +1,80 @@
+.header-modal {
+    border: none;
+
+    .header-content {
+        display: flex;
+        gap: 15px;
+        margin-top: 10px;
+
+        .header-child {
+            font-size: 16px;
+            gap: 10px;
+            padding: 5px;
+
+            &:hover {
+                cursor: pointer;
+                border-radius: 5px;
+                background-color: rgba(173, 173, 173, 0.855);
+            }
+        }
+    }
+
+}
+
+.modal-content {
+    color: rgb(219, 213, 213) !important;
+    background-color: rgb(37, 37, 37) !important;
+}
+
+.content-modal {
+    padding: 5px;
+    max-height: 120px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 8px;
+    margin-top: 10px;
+
+    .image-user {
+        img {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+        }
+    }
+
+    .content-noti {
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+        padding-left: 10px;
+        height: auto;
+
+        .notifi-main {
+            display: inline-block;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            white-space: normal;
+            width: 100%;
+
+        }
+
+        .notifi-time {
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.605);
+        }
+    }
+
+    &:hover {
+        border-radius: 9px;
+        background-color: rgba(106, 106, 106, 0.629);
+        cursor: pointer;
+    }
+
+    .btn-action {
+        height: 100%;
+        margin-top: 20px;
+        display: flex;
+        gap: 20px;
+    }
+}
