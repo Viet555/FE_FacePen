@@ -7,6 +7,7 @@ import {
   friendAccept,
   friendReject,
   getNotifications,
+  markAsReadNotifi,
 } from "../../service/ApiService";
 import { toast } from "react-toastify";
 import avt from "../../assets/image/avatar-female.avif";
@@ -91,7 +92,17 @@ const NotificationArea = (props) => {
       toast.error(res?.Mes);
     }
   };
-
+  const markAsRead = async (notiId) => {
+    if (!notiId) {
+      return toast.error("error notifi");
+    }
+    let res = await markAsReadNotifi(notiId);
+    if (res?.Ec !== 0) {
+      toast.error(res.Mes);
+    } else {
+      fecthAllNotifications(user.id);
+    }
+  };
   console.log("notifications", notifications);
   return (
     <>
@@ -124,7 +135,16 @@ const NotificationArea = (props) => {
               const timeOnly = timeFull.split(".")[0];
 
               return (
-                <div className="content-modal" key={`modal${item._id}`}>
+                <div
+                  className="content-modal"
+                  style={
+                    item.isRead === false
+                      ? { color: "rgb(250, 250, 250)" }
+                      : { color: "rgb(219, 213, 213)" }
+                  }
+                  onClick={() => markAsRead(item._id)}
+                  key={`modal${item._id}`}
+                >
                   <div className="image-user">
                     <img src={item.senderId.avatar || avt} />
                   </div>

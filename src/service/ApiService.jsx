@@ -7,10 +7,10 @@ const handleRegister = (dataRegister) => {
   return axios.post("/api/CreateUser", dataRegister);
 };
 //user
-const updateUser = (_id, gender) => {
-  return axios.put(`/api/update-user`, { _id, gender });
+const updateUser = (_id, gender, avatar) => {
+  return axios.put(`/api/update-user`, { _id, gender, avatar });
 };
-//
+//Post
 const getPostsService = (userId) => {
   return axios.get(`/api/get-Post?id=${userId}`);
 };
@@ -24,6 +24,10 @@ const createPost = (formData) => {
     },
   });
 };
+const likePost = (postId, userId) => {
+  return axios.post(`/api/like-post?postId=${postId}&&userId=${userId}`);
+};
+
 //relationship
 const SendFriendRequest = (requesterId, recipientId) => {
   return axios.post("/api/friend-Request", { requesterId, recipientId });
@@ -39,6 +43,9 @@ const friendReject = (requesterId, recipientId) => {
 const getNotifications = (userId) => {
   return axios.get(`/api/get-notification-user?userId=${userId}`);
 };
+const markAsReadNotifi = (notiId) => {
+  return axios.post(`/api/markAsRead-notification?notiId=${notiId}`);
+};
 
 export {
   handleLogin,
@@ -51,4 +58,6 @@ export {
   getNotifications,
   friendAccept,
   friendReject,
+  markAsReadNotifi,
+  likePost,
 };

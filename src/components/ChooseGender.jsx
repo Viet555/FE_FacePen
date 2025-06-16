@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { updateUser } from "../service/ApiService";
 import { useNavigate } from "react-router-dom";
 import actiontypes from "../store/Action/ActionTypes";
+import { Base64FromUrl } from "../GetBase64";
 
 const ChooseGender = () => {
   const infoUser = useSelector((state) => state.user.account);
@@ -17,12 +18,14 @@ const ChooseGender = () => {
     if (!gender) {
       return toast.error("missing gender");
     }
-    let res = await updateUser(infoUser.id, gender);
+    let avtUrl = gender === "male" ? avatarMale : avatarFeMale;
+    let avtBase64 = await Base64FromUrl(avtUrl);
+    let res = await updateUser(infoUser.id, gender, avtBase64);
     if (res?.Ec === 0) {
       toast.success("choose Gender success");
       dispatch({
         type: actiontypes.UPDATE_USER_INFO,
-        payload: { gender },
+        payload: { gender, avatar: avtBase64 },
       });
       navigate("/");
     } else {

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import "./Posts.scss";
-import { getPostsService } from "../service/ApiService";
+import { getPostsService, likePost } from "../service/ApiService";
 import { useSelector } from "react-redux";
 import Slider from "react-slick";
 import { toast } from "react-toastify";
@@ -61,6 +61,8 @@ const Posts = () => {
 
   const [posts, setPosts] = useState([]);
   const userId = useSelector((state) => state.user.account);
+  const [likeStatus, setLikeStatus] = useState({});
+
   useEffect(() => {
     fecthPosts();
   }, [userId]);
@@ -70,6 +72,7 @@ const Posts = () => {
         const res = await getPostsService(userId.id);
         if (res?.Ec === 0) {
           setPosts(res.Data);
+          syncLikeStatus(res.Data);
         } else {
           toast.error(res?.Mes);
         }
@@ -78,6 +81,57 @@ const Posts = () => {
       console.log("Error fetching posts: ", error);
     }
   };
+  const syncLikeStatus = (posts) => {
+    const status = {};
+    posts.forEach((post) => {
+      status[post._id] = post.likes.some((like) => {
+        if (typeof like === "string") return like === userId.id;
+        if (typeof like === "object" && like._id) return like._id === userId.id;
+        return false;
+      });
+    });
+    setLikeStatus(status);
+  };
+
+  const handleLikePost = async (postId) => {
+    try {
+      const response = await likePost(postId, userId?.id);
+      if (response?.Ec === 0) {
+        setLikeStatus((prev) => ({
+          ...prev,
+          [postId]: !prev[postId],
+        }));
+
+        setPosts((prevPosts) =>
+          prevPosts.map((post) => {
+            if (post._id === postId) {
+              const alreadyLiked = post.likes.some((like) => {
+                if (typeof like === "string") return like === userId.id;
+                if (typeof like === "object" && like._id)
+                  return like._id === userId.id;
+                return false;
+              });
+              const updatedLikes = alreadyLiked
+                ? post.likes.filter((like) => {
+                    if (typeof like === "string") return like !== userId.id;
+                    if (typeof like === "object" && like._id)
+                      return like._id !== userId.id;
+                    return true;
+                  })
+                : [...post.likes, userId.id];
+              return { ...post, likes: updatedLikes };
+            }
+            return post;
+          })
+        );
+      } else {
+        toast.error(response?.Mes);
+      }
+    } catch (error) {
+      console.error("Lỗi like:", error);
+    }
+  };
+
   return (
     <div className="posts-content">
       {posts &&
@@ -127,9 +181,30 @@ const Posts = () => {
                 </Slider>
               </div>
             </div>
+            <div className="likepost-show">
+              {likeStatus[post._id]
+                ? post.likes.length === 1
+                  ? "You "
+                  : `You and ${post.likes.length - 1} others `
+                : `${post.likes.length} `}
+              <i className="fa-solid fa-heart"></i>
+              <div className="likepost-total">
+                {post?.likes?.length > 0 &&
+                  post.likes.map((item) => {
+                    const firstName = item?.firstName || "";
+                    const lastName = item?.lastName || "";
+                    const userName = `${firstName}${lastName}`.trim();
+                    return <div key={item._id}>{userName}</div>;
+                  })}
+              </div>
+            </div>
             <div className="post-box__action">
               <div className="reaction-post">
-                <i className="fa-regular fa-heart"></i>
+                <i
+                  style={{ color: likeStatus[post._id] ? "red" : "black" }}
+                  className="fa-solid fa-heart"
+                  onClick={() => handleLikePost(post._id)}
+                ></i>
               </div>
               <div className="comment-post">
                 <i className="fa-regular fa-comment"></i>
