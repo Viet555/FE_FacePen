@@ -6,11 +6,40 @@ import Slider from "react-slick";
 import { toast } from "react-toastify";
 import Lightbox from "yet-another-react-lightbox";
 import Video from "yet-another-react-lightbox/plugins/video";
+import CommentModal from "./Modal/Comments";
+import ShareModal from "./Modal/Share";
+
 
 const Posts = () => {
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
   const [lightboxSlides, setLightboxSlides] = useState([]);
+
+  // show modal comment
+  const [showCommentModal, setShowCommentModal] = useState(false)
+  const [selectedPost, setSelectedPost] = useState(null)
+
+  const handleOpenCommentModal = (post) => {
+    setSelectedPost(post)
+    setShowCommentModal(true)
+  } 
+  const handleCloseCommentModal = () => {
+    setShowCommentModal(false)
+    setSelectedPost(null)
+  }
+  // show modal share
+  const [showShareModal, setShowShareModal] = useState(false);
+  const [sharePost, setSharePost] = useState(null);
+
+  const handleOpenShareModal = (post) => {
+    setSharePost(post);
+    setShowShareModal(true);
+  };
+
+  const handleCloseShareModal = () => {
+    setShowShareModal(false);
+    setSharePost(null);
+  };
 
   const [showMenu, setShowMenu] = useState(false);
   const moreMenuRef = useRef(null);
@@ -248,10 +277,10 @@ const Posts = () => {
                     onClick={() => handleLikePost(post._id)}
                   ></i>
                 </div>
-                <div className="comment-post">
+                <div className="comment-post" onClick={() => handleOpenCommentModal(post)}>
                   <i className="fa-regular fa-comment"></i>
                 </div>
-                <div className="share-post">
+                <div className="share-post" onClick={() => handleOpenShareModal(post)}>
                   <i className="fa-solid fa-share"></i>
                 </div>
               </div>
@@ -264,6 +293,16 @@ const Posts = () => {
         slides={lightboxSlides}
         index={lightboxIndex}
         plugins={[Video]}
+      />
+      <CommentModal
+        show={showCommentModal}
+        handleClose={handleCloseCommentModal}
+        post={selectedPost}
+      />
+      <ShareModal
+        show={showShareModal}
+        handleClose={handleCloseShareModal}
+        post={sharePost}
       />
     </>
   );

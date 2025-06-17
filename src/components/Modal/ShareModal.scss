@@ -1,0 +1,115 @@
+.share-modal {
+  .modal-content {
+    border-radius: 10px;
+    overflow: hidden;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .modal-header {
+    padding: 1rem;
+    font-weight: 600;
+    font-size: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .modal-body {
+    overflow-y: auto;
+    padding: 1rem;
+    flex-grow: 1;
+  }
+
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    img {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+    }
+
+    .user-meta {
+      .name {
+        font-weight: 600;
+      }
+      .privacy-btn {
+        background: #eee;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 12px;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .share-textarea {
+    width: 100%;
+    border: none;
+    margin-top: 15px;
+    height: 100px;
+    resize: none;
+    font-size: 16px;
+    padding: 10px;
+    background: #f9f9f9;
+  }
+
+  .btn-share {
+    margin-top: 10px;
+    background-color: #1877f2;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .share-section {
+    margin-top: 20px;
+
+    .section-title {
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .messenger-users {
+      display: flex;
+      overflow-x: auto;
+      gap: 15px;
+
+      .user-item {
+        text-align: center;
+        .avatar {
+          width: 45px;
+          height: 45px;
+          background: #ccc;
+          border-radius: 50%;
+          margin-bottom: 5px;
+        }
+        .name {
+          font-size: 12px;
+          white-space: nowrap;
+        }
+      }
+    }
+
+    .platform-icons {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 10px;
+
+      i {
+        font-size: 22px;
+        cursor: pointer;
+      }
+    }
+  }
+}
