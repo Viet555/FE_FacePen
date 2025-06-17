@@ -10,6 +10,7 @@
     justify-content: center;
     z-index: 99;
     animation: fadeIn 0.3s ease;
+
     .story-modal {
         background-color: rgba(0, 0, 0, 0.5);
         padding: 10px;
@@ -18,27 +19,32 @@
         max-width: 90%;
         max-height: 90%;
         animation: zoomIn 0.3s ease;
+
         .modal-image {
             max-width: 100%;
             max-height: 400px;
             border-radius: 10px;
-            margin-top: 20px;
+            margin-top: 28px;
         }
+
         .modal-info {
             display: flex;
             align-items: center;
             gap: 10px;
             margin-top: 10px;
+
             .modal-avatar {
                 width: 40px;
                 height: 40px;
                 border-radius: 50%;
             }
+
             .modal-name {
                 font-weight: bold;
                 color: #fff;
             }
         }
+
         .modal-close {
             position: absolute;
             color: #ccc;
@@ -51,7 +57,13 @@
         }
     }
 }
+
 @keyframes zoomIn {
-    from { transform: scale(0.8); }
-    to { transform: scale(1);}
+    from {
+        transform: scale(0.8);
+    }
+
+    to {
+        transform: scale(1);
+    }
 }

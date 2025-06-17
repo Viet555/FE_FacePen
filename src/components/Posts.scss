@@ -28,6 +28,11 @@
         align-items: center;
         gap: 10px;
 
+        img {
+          height: 47px;
+          width: 50px;
+        }
+
         i {
           font-size: 30px;
           color: #2d79f3;
@@ -154,9 +159,11 @@
           width: 500px;
           height: 300px;
           border-radius: 10px;
+          cursor: pointer;
         }
 
         img {
+          cursor: pointer;
           width: 100%;
           max-height: 500px;
           border-radius: 10px;
