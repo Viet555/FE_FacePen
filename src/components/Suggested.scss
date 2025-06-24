@@ -5,34 +5,44 @@
     flex-direction: column;
     gap: 20px;
     padding: 20px;
+
     .suggested-title {
         display: flex;
         justify-content: space-between;
+
         .title-header {
             opacity: 0.7;
             font-size: 16px;
         }
+
         .show-all-btn {
             cursor: pointer;
             font-size: 16px;
             font-weight: 600;
         }
-    } 
+    }
+
     .suggested-option {
         display: flex;
         justify-content: space-between;
         align-items: center;
+
         .user-info {
             display: flex;
             gap: 20px;
             align-items: center;
+
             img {
+                width: 47px;
+                height: 50px;
                 border-radius: 50%;
             }
         }
+
         .btn-follow {
             cursor: pointer;
             color: #1505f4;
+
             &:hover {
                 color: #050142;
                 font-weight: 500;
